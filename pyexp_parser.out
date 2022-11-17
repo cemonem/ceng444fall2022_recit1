@@ -1,0 +1,615 @@
+Grammar:
+
+Rule 0     S' -> program
+Rule 1     program -> newline_opt exps newline_opt
+Rule 2     program -> newline_opt
+Rule 3     exps -> exp
+Rule 4     exps -> exps NEWLINE exp
+Rule 5     exp -> assign
+Rule 6     assign -> if_exp
+Rule 7     assign -> ID ASSIGN assign
+Rule 8     if_exp -> term
+Rule 9     if_exp -> term IF exp ELSE exp
+Rule 10    if_exp -> term IF exp
+Rule 11    term -> ID
+Rule 12    term -> NUMBER
+Rule 13    term -> ( exp )
+Rule 14    term -> term EQ term  [precedence=left, level=1]
+Rule 15    term -> term * term  [precedence=left, level=3]
+Rule 16    term -> term DIVIDE term  [precedence=left, level=3]
+Rule 17    term -> term - term  [precedence=left, level=2]
+Rule 18    term -> term + term  [precedence=left, level=2]
+Rule 19    newline_opt -> empty
+Rule 20    newline_opt -> NEWLINE
+Rule 21    empty -> <empty>
+
+Terminals, with rules where they appear:
+
+(                    : 13
+)                    : 13
+*                    : 15
++                    : 18
+-                    : 17
+ASSIGN               : 7
+DIVIDE               : 16
+ELSE                 : 9
+EQ                   : 14
+ID                   : 7 11
+IF                   : 9 10
+NEWLINE              : 4 20
+NUMBER               : 12
+error                : 
+
+Nonterminals, with rules where they appear:
+
+assign               : 5 7
+empty                : 19
+exp                  : 3 4 9 9 10 13
+exps                 : 1 4
+if_exp               : 6
+newline_opt          : 1 1 2
+program              : 0
+term                 : 8 9 10 14 14 15 15 16 16 17 17 18 18
+
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . newline_opt exps newline_opt
+    (2) program -> . newline_opt
+    (19) newline_opt -> . empty
+    (20) newline_opt -> . NEWLINE
+    (21) empty -> .
+    NEWLINE         shift and go to state 4
+    ID              reduce using rule 21 (empty -> .)
+    NUMBER          reduce using rule 21 (empty -> .)
+    (               reduce using rule 21 (empty -> .)
+    $end            reduce using rule 21 (empty -> .)
+
+    program                        shift and go to state 1
+    newline_opt                    shift and go to state 2
+    empty                          shift and go to state 3
+
+state 1
+
+    (0) S' -> program .
+
+
+state 2
+
+    (1) program -> newline_opt . exps newline_opt
+    (2) program -> newline_opt .
+    (3) exps -> . exp
+    (4) exps -> . exps NEWLINE exp
+    (5) exp -> . assign
+    (6) assign -> . if_exp
+    (7) assign -> . ID ASSIGN assign
+    (8) if_exp -> . term
+    (9) if_exp -> . term IF exp ELSE exp
+    (10) if_exp -> . term IF exp
+    (11) term -> . ID
+    (12) term -> . NUMBER
+    (13) term -> . ( exp )
+    (14) term -> . term EQ term
+    (15) term -> . term * term
+    (16) term -> . term DIVIDE term
+    (17) term -> . term - term
+    (18) term -> . term + term
+    $end            reduce using rule 2 (program -> newline_opt .)
+    ID              shift and go to state 9
+    NUMBER          shift and go to state 11
+    (               shift and go to state 12
+
+    exps                           shift and go to state 5
+    exp                            shift and go to state 6
+    assign                         shift and go to state 7
+    if_exp                         shift and go to state 8
+    term                           shift and go to state 10
+
+state 3
+
+    (19) newline_opt -> empty .
+    ID              reduce using rule 19 (newline_opt -> empty .)
+    NUMBER          reduce using rule 19 (newline_opt -> empty .)
+    (               reduce using rule 19 (newline_opt -> empty .)
+    $end            reduce using rule 19 (newline_opt -> empty .)
+
+
+state 4
+
+    (20) newline_opt -> NEWLINE .
+    ID              reduce using rule 20 (newline_opt -> NEWLINE .)
+    NUMBER          reduce using rule 20 (newline_opt -> NEWLINE .)
+    (               reduce using rule 20 (newline_opt -> NEWLINE .)
+    $end            reduce using rule 20 (newline_opt -> NEWLINE .)
+
+
+state 5
+
+    (1) program -> newline_opt exps . newline_opt
+    (4) exps -> exps . NEWLINE exp
+    (19) newline_opt -> . empty
+    (20) newline_opt -> . NEWLINE
+    (21) empty -> .
+    NEWLINE         shift and go to state 14
+    $end            reduce using rule 21 (empty -> .)
+
+    newline_opt                    shift and go to state 13
+    empty                          shift and go to state 3
+
+state 6
+
+    (3) exps -> exp .
+    NEWLINE         reduce using rule 3 (exps -> exp .)
+    $end            reduce using rule 3 (exps -> exp .)
+
+
+state 7
+
+    (5) exp -> assign .
+    NEWLINE         reduce using rule 5 (exp -> assign .)
+    $end            reduce using rule 5 (exp -> assign .)
+    )               reduce using rule 5 (exp -> assign .)
+    ELSE            reduce using rule 5 (exp -> assign .)
+
+
+state 8
+
+    (6) assign -> if_exp .
+    NEWLINE         reduce using rule 6 (assign -> if_exp .)
+    $end            reduce using rule 6 (assign -> if_exp .)
+    )               reduce using rule 6 (assign -> if_exp .)
+    ELSE            reduce using rule 6 (assign -> if_exp .)
+
+
+state 9
+
+    (7) assign -> ID . ASSIGN assign
+    (11) term -> ID .
+    ASSIGN          shift and go to state 15
+    IF              reduce using rule 11 (term -> ID .)
+    EQ              reduce using rule 11 (term -> ID .)
+    *               reduce using rule 11 (term -> ID .)
+    DIVIDE          reduce using rule 11 (term -> ID .)
+    -               reduce using rule 11 (term -> ID .)
+    +               reduce using rule 11 (term -> ID .)
+    NEWLINE         reduce using rule 11 (term -> ID .)
+    $end            reduce using rule 11 (term -> ID .)
+    )               reduce using rule 11 (term -> ID .)
+    ELSE            reduce using rule 11 (term -> ID .)
+
+
+state 10
+
+    (8) if_exp -> term .
+    (9) if_exp -> term . IF exp ELSE exp
+    (10) if_exp -> term . IF exp
+    (14) term -> term . EQ term
+    (15) term -> term . * term
+    (16) term -> term . DIVIDE term
+    (17) term -> term . - term
+    (18) term -> term . + term
+    NEWLINE         reduce using rule 8 (if_exp -> term .)
+    $end            reduce using rule 8 (if_exp -> term .)
+    )               reduce using rule 8 (if_exp -> term .)
+    ELSE            reduce using rule 8 (if_exp -> term .)
+    IF              shift and go to state 16
+    EQ              shift and go to state 17
+    *               shift and go to state 18
+    DIVIDE          shift and go to state 19
+    -               shift and go to state 20
+    +               shift and go to state 21
+
+
+state 11
+
+    (12) term -> NUMBER .
+    IF              reduce using rule 12 (term -> NUMBER .)
+    EQ              reduce using rule 12 (term -> NUMBER .)
+    *               reduce using rule 12 (term -> NUMBER .)
+    DIVIDE          reduce using rule 12 (term -> NUMBER .)
+    -               reduce using rule 12 (term -> NUMBER .)
+    +               reduce using rule 12 (term -> NUMBER .)
+    NEWLINE         reduce using rule 12 (term -> NUMBER .)
+    $end            reduce using rule 12 (term -> NUMBER .)
+    )               reduce using rule 12 (term -> NUMBER .)
+    ELSE            reduce using rule 12 (term -> NUMBER .)
+
+
+state 12
+
+    (13) term -> ( . exp )
+    (5) exp -> . assign
+    (6) assign -> . if_exp
+    (7) assign -> . ID ASSIGN assign
+    (8) if_exp -> . term
+    (9) if_exp -> . term IF exp ELSE exp
+    (10) if_exp -> . term IF exp
+    (11) term -> . ID
+    (12) term -> . NUMBER
+    (13) term -> . ( exp )
+    (14) term -> . term EQ term
+    (15) term -> . term * term
+    (16) term -> . term DIVIDE term
+    (17) term -> . term - term
+    (18) term -> . term + term
+    ID              shift and go to state 9
+    NUMBER          shift and go to state 11
+    (               shift and go to state 12
+
+    exp                            shift and go to state 22
+    assign                         shift and go to state 7
+    if_exp                         shift and go to state 8
+    term                           shift and go to state 10
+
+state 13
+
+    (1) program -> newline_opt exps newline_opt .
+    $end            reduce using rule 1 (program -> newline_opt exps newline_opt .)
+
+
+state 14
+
+    (4) exps -> exps NEWLINE . exp
+    (20) newline_opt -> NEWLINE .
+    (5) exp -> . assign
+    (6) assign -> . if_exp
+    (7) assign -> . ID ASSIGN assign
+    (8) if_exp -> . term
+    (9) if_exp -> . term IF exp ELSE exp
+    (10) if_exp -> . term IF exp
+    (11) term -> . ID
+    (12) term -> . NUMBER
+    (13) term -> . ( exp )
+    (14) term -> . term EQ term
+    (15) term -> . term * term
+    (16) term -> . term DIVIDE term
+    (17) term -> . term - term
+    (18) term -> . term + term
+    $end            reduce using rule 20 (newline_opt -> NEWLINE .)
+    ID              shift and go to state 9
+    NUMBER          shift and go to state 11
+    (               shift and go to state 12
+
+    exp                            shift and go to state 23
+    assign                         shift and go to state 7
+    if_exp                         shift and go to state 8
+    term                           shift and go to state 10
+
+state 15
+
+    (7) assign -> ID ASSIGN . assign
+    (6) assign -> . if_exp
+    (7) assign -> . ID ASSIGN assign
+    (8) if_exp -> . term
+    (9) if_exp -> . term IF exp ELSE exp
+    (10) if_exp -> . term IF exp
+    (11) term -> . ID
+    (12) term -> . NUMBER
+    (13) term -> . ( exp )
+    (14) term -> . term EQ term
+    (15) term -> . term * term
+    (16) term -> . term DIVIDE term
+    (17) term -> . term - term
+    (18) term -> . term + term
+    ID              shift and go to state 9
+    NUMBER          shift and go to state 11
+    (               shift and go to state 12
+
+    assign                         shift and go to state 24
+    if_exp                         shift and go to state 8
+    term                           shift and go to state 10
+
+state 16
+
+    (9) if_exp -> term IF . exp ELSE exp
+    (10) if_exp -> term IF . exp
+    (5) exp -> . assign
+    (6) assign -> . if_exp
+    (7) assign -> . ID ASSIGN assign
+    (8) if_exp -> . term
+    (9) if_exp -> . term IF exp ELSE exp
+    (10) if_exp -> . term IF exp
+    (11) term -> . ID
+    (12) term -> . NUMBER
+    (13) term -> . ( exp )
+    (14) term -> . term EQ term
+    (15) term -> . term * term
+    (16) term -> . term DIVIDE term
+    (17) term -> . term - term
+    (18) term -> . term + term
+    ID              shift and go to state 9
+    NUMBER          shift and go to state 11
+    (               shift and go to state 12
+
+    term                           shift and go to state 10
+    exp                            shift and go to state 25
+    assign                         shift and go to state 7
+    if_exp                         shift and go to state 8
+
+state 17
+
+    (14) term -> term EQ . term
+    (11) term -> . ID
+    (12) term -> . NUMBER
+    (13) term -> . ( exp )
+    (14) term -> . term EQ term
+    (15) term -> . term * term
+    (16) term -> . term DIVIDE term
+    (17) term -> . term - term
+    (18) term -> . term + term
+    ID              shift and go to state 27
+    NUMBER          shift and go to state 11
+    (               shift and go to state 12
+
+    term                           shift and go to state 26
+
+state 18
+
+    (15) term -> term * . term
+    (11) term -> . ID
+    (12) term -> . NUMBER
+    (13) term -> . ( exp )
+    (14) term -> . term EQ term
+    (15) term -> . term * term
+    (16) term -> . term DIVIDE term
+    (17) term -> . term - term
+    (18) term -> . term + term
+    ID              shift and go to state 27
+    NUMBER          shift and go to state 11
+    (               shift and go to state 12
+
+    term                           shift and go to state 28
+
+state 19
+
+    (16) term -> term DIVIDE . term
+    (11) term -> . ID
+    (12) term -> . NUMBER
+    (13) term -> . ( exp )
+    (14) term -> . term EQ term
+    (15) term -> . term * term
+    (16) term -> . term DIVIDE term
+    (17) term -> . term - term
+    (18) term -> . term + term
+    ID              shift and go to state 27
+    NUMBER          shift and go to state 11
+    (               shift and go to state 12
+
+    term                           shift and go to state 29
+
+state 20
+
+    (17) term -> term - . term
+    (11) term -> . ID
+    (12) term -> . NUMBER
+    (13) term -> . ( exp )
+    (14) term -> . term EQ term
+    (15) term -> . term * term
+    (16) term -> . term DIVIDE term
+    (17) term -> . term - term
+    (18) term -> . term + term
+    ID              shift and go to state 27
+    NUMBER          shift and go to state 11
+    (               shift and go to state 12
+
+    term                           shift and go to state 30
+
+state 21
+
+    (18) term -> term + . term
+    (11) term -> . ID
+    (12) term -> . NUMBER
+    (13) term -> . ( exp )
+    (14) term -> . term EQ term
+    (15) term -> . term * term
+    (16) term -> . term DIVIDE term
+    (17) term -> . term - term
+    (18) term -> . term + term
+    ID              shift and go to state 27
+    NUMBER          shift and go to state 11
+    (               shift and go to state 12
+
+    term                           shift and go to state 31
+
+state 22
+
+    (13) term -> ( exp . )
+    )               shift and go to state 32
+
+
+state 23
+
+    (4) exps -> exps NEWLINE exp .
+    NEWLINE         reduce using rule 4 (exps -> exps NEWLINE exp .)
+    $end            reduce using rule 4 (exps -> exps NEWLINE exp .)
+
+
+state 24
+
+    (7) assign -> ID ASSIGN assign .
+    NEWLINE         reduce using rule 7 (assign -> ID ASSIGN assign .)
+    $end            reduce using rule 7 (assign -> ID ASSIGN assign .)
+    )               reduce using rule 7 (assign -> ID ASSIGN assign .)
+    ELSE            reduce using rule 7 (assign -> ID ASSIGN assign .)
+
+
+state 25
+
+    (9) if_exp -> term IF exp . ELSE exp
+    (10) if_exp -> term IF exp .
+  ! shift/reduce conflict for ELSE resolved as shift
+    ELSE            shift and go to state 33
+    NEWLINE         reduce using rule 10 (if_exp -> term IF exp .)
+    $end            reduce using rule 10 (if_exp -> term IF exp .)
+    )               reduce using rule 10 (if_exp -> term IF exp .)
+
+
+state 26
+
+    (14) term -> term EQ term .
+    (14) term -> term . EQ term
+    (15) term -> term . * term
+    (16) term -> term . DIVIDE term
+    (17) term -> term . - term
+    (18) term -> term . + term
+    IF              reduce using rule 14 (term -> term EQ term .)
+    EQ              reduce using rule 14 (term -> term EQ term .)
+    NEWLINE         reduce using rule 14 (term -> term EQ term .)
+    $end            reduce using rule 14 (term -> term EQ term .)
+    )               reduce using rule 14 (term -> term EQ term .)
+    ELSE            reduce using rule 14 (term -> term EQ term .)
+    *               shift and go to state 18
+    DIVIDE          shift and go to state 19
+    -               shift and go to state 20
+    +               shift and go to state 21
+
+
+state 27
+
+    (11) term -> ID .
+    EQ              reduce using rule 11 (term -> ID .)
+    *               reduce using rule 11 (term -> ID .)
+    DIVIDE          reduce using rule 11 (term -> ID .)
+    -               reduce using rule 11 (term -> ID .)
+    +               reduce using rule 11 (term -> ID .)
+    IF              reduce using rule 11 (term -> ID .)
+    NEWLINE         reduce using rule 11 (term -> ID .)
+    $end            reduce using rule 11 (term -> ID .)
+    )               reduce using rule 11 (term -> ID .)
+    ELSE            reduce using rule 11 (term -> ID .)
+
+
+state 28
+
+    (15) term -> term * term .
+    (14) term -> term . EQ term
+    (15) term -> term . * term
+    (16) term -> term . DIVIDE term
+    (17) term -> term . - term
+    (18) term -> term . + term
+    IF              reduce using rule 15 (term -> term * term .)
+    EQ              reduce using rule 15 (term -> term * term .)
+    *               reduce using rule 15 (term -> term * term .)
+    DIVIDE          reduce using rule 15 (term -> term * term .)
+    -               reduce using rule 15 (term -> term * term .)
+    +               reduce using rule 15 (term -> term * term .)
+    NEWLINE         reduce using rule 15 (term -> term * term .)
+    $end            reduce using rule 15 (term -> term * term .)
+    )               reduce using rule 15 (term -> term * term .)
+    ELSE            reduce using rule 15 (term -> term * term .)
+
+
+state 29
+
+    (16) term -> term DIVIDE term .
+    (14) term -> term . EQ term
+    (15) term -> term . * term
+    (16) term -> term . DIVIDE term
+    (17) term -> term . - term
+    (18) term -> term . + term
+    IF              reduce using rule 16 (term -> term DIVIDE term .)
+    EQ              reduce using rule 16 (term -> term DIVIDE term .)
+    *               reduce using rule 16 (term -> term DIVIDE term .)
+    DIVIDE          reduce using rule 16 (term -> term DIVIDE term .)
+    -               reduce using rule 16 (term -> term DIVIDE term .)
+    +               reduce using rule 16 (term -> term DIVIDE term .)
+    NEWLINE         reduce using rule 16 (term -> term DIVIDE term .)
+    $end            reduce using rule 16 (term -> term DIVIDE term .)
+    )               reduce using rule 16 (term -> term DIVIDE term .)
+    ELSE            reduce using rule 16 (term -> term DIVIDE term .)
+
+
+state 30
+
+    (17) term -> term - term .
+    (14) term -> term . EQ term
+    (15) term -> term . * term
+    (16) term -> term . DIVIDE term
+    (17) term -> term . - term
+    (18) term -> term . + term
+    IF              reduce using rule 17 (term -> term - term .)
+    EQ              reduce using rule 17 (term -> term - term .)
+    -               reduce using rule 17 (term -> term - term .)
+    +               reduce using rule 17 (term -> term - term .)
+    NEWLINE         reduce using rule 17 (term -> term - term .)
+    $end            reduce using rule 17 (term -> term - term .)
+    )               reduce using rule 17 (term -> term - term .)
+    ELSE            reduce using rule 17 (term -> term - term .)
+    *               shift and go to state 18
+    DIVIDE          shift and go to state 19
+
+
+state 31
+
+    (18) term -> term + term .
+    (14) term -> term . EQ term
+    (15) term -> term . * term
+    (16) term -> term . DIVIDE term
+    (17) term -> term . - term
+    (18) term -> term . + term
+    IF              reduce using rule 18 (term -> term + term .)
+    EQ              reduce using rule 18 (term -> term + term .)
+    -               reduce using rule 18 (term -> term + term .)
+    +               reduce using rule 18 (term -> term + term .)
+    NEWLINE         reduce using rule 18 (term -> term + term .)
+    $end            reduce using rule 18 (term -> term + term .)
+    )               reduce using rule 18 (term -> term + term .)
+    ELSE            reduce using rule 18 (term -> term + term .)
+    *               shift and go to state 18
+    DIVIDE          shift and go to state 19
+
+
+state 32
+
+    (13) term -> ( exp ) .
+    IF              reduce using rule 13 (term -> ( exp ) .)
+    EQ              reduce using rule 13 (term -> ( exp ) .)
+    *               reduce using rule 13 (term -> ( exp ) .)
+    DIVIDE          reduce using rule 13 (term -> ( exp ) .)
+    -               reduce using rule 13 (term -> ( exp ) .)
+    +               reduce using rule 13 (term -> ( exp ) .)
+    NEWLINE         reduce using rule 13 (term -> ( exp ) .)
+    $end            reduce using rule 13 (term -> ( exp ) .)
+    )               reduce using rule 13 (term -> ( exp ) .)
+    ELSE            reduce using rule 13 (term -> ( exp ) .)
+
+
+state 33
+
+    (9) if_exp -> term IF exp ELSE . exp
+    (5) exp -> . assign
+    (6) assign -> . if_exp
+    (7) assign -> . ID ASSIGN assign
+    (8) if_exp -> . term
+    (9) if_exp -> . term IF exp ELSE exp
+    (10) if_exp -> . term IF exp
+    (11) term -> . ID
+    (12) term -> . NUMBER
+    (13) term -> . ( exp )
+    (14) term -> . term EQ term
+    (15) term -> . term * term
+    (16) term -> . term DIVIDE term
+    (17) term -> . term - term
+    (18) term -> . term + term
+    ID              shift and go to state 9
+    NUMBER          shift and go to state 11
+    (               shift and go to state 12
+
+    term                           shift and go to state 10
+    exp                            shift and go to state 34
+    assign                         shift and go to state 7
+    if_exp                         shift and go to state 8
+
+state 34
+
+    (9) if_exp -> term IF exp ELSE exp .
+    NEWLINE         reduce using rule 9 (if_exp -> term IF exp ELSE exp .)
+    $end            reduce using rule 9 (if_exp -> term IF exp ELSE exp .)
+    )               reduce using rule 9 (if_exp -> term IF exp ELSE exp .)
+    ELSE            reduce using rule 9 (if_exp -> term IF exp ELSE exp .)
+
+
+Conflicts:
+
+shift/reduce conflict for ELSE in state 25 resolved as shift
